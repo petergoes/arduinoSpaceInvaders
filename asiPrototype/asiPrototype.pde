@@ -63,3 +63,18 @@ void render( int[][][] lights )
     }
   }
 }
+
+void keyPressed()
+{
+  if ( key==CODED )
+  {
+    if ( keyCode == RIGHT )
+    {
+      space.interactionRight();
+    }
+    if ( keyCode == LEFT )
+    {
+      space.interactionLeft();
+    }
+  }
+}

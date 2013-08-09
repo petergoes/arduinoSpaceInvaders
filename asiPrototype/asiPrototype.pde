@@ -2,6 +2,9 @@
 int screenWidth  = 480;
 int screenHeight = 800;
 int lightMargin  = 20;
+int r            = 0;
+int g            = 1;
+int b            = 2;
 int cellWidth;
 int cellHeight;
 int lightWidth;
@@ -10,6 +13,7 @@ int lightHeight;
 // asi variables
 int columns      = 4;
 int rows         = 6;
+Space space;
 
 void setup()
 {
@@ -21,17 +25,18 @@ void setup()
   lightWidth  = cellWidth - lightMargin;
   lightHeight = cellHeight - lightMargin;
   
-  background(0);
+  space = new Space( columns, rows );
 }
 
 void draw()
 {
   clear();
+  background(20);
   
-  render();
+  render( space.lightsToRender() );
 }
 
-void render()
+void render( int[][][] lights )
 {
   // Draw lights
   for ( int x = 0; x < columns; x++ )
@@ -41,7 +46,15 @@ void render()
       pushMatrix();
       
       translate(cellWidth * x, cellHeight * y);
-      fill(64);
+      
+      fill( 
+        color(
+          lights[x][y][r], 
+          lights[x][y][g], 
+          lights[x][y][b]
+        ) 
+      );
+       
       rect( (lightMargin * .5), (lightMargin * .5), lightWidth, lightHeight);
       
       popMatrix();

@@ -9,22 +9,22 @@ class Player
     c = #ffff00;
   }
   
-  void movePlayer( int value )
+  public void movePlayer( int value )
   {
     x = value;
   }
   
-  int getX()
+  public int getX()
   {
     return x;
   }
   
-  color getColor()
+  public color getColor()
   {
     return c;
   }
   
-  int[] getColorArray()
+  public int[] getColorArray()
   {
     int[] colors = new int[3];
     colors[0] = (c >> 16) & 0xFF; // Red

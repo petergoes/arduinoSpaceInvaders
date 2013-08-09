@@ -1,9 +1,11 @@
 class Space
 {
-  int[][][] lights;
-  int columns;
-  int rows;
-  Player player;
+  int[][][]      lights;
+  int            columns;
+  int            rows;
+  int            prevSecond;
+  Player         player;
+  InvaderManager invaderManager;
   
   Space ( int _columns, int _rows )
   {
@@ -12,13 +14,23 @@ class Space
     lights  = new int[columns][rows][3];
     
     player = new Player();
+    invaderManager = new InvaderManager( columns, rows );
     
     _initialize();
   }
   
   public void update()
   {
-    // move Player
+    Boolean step = false;
+    if ( prevSecond != second() )
+    {
+      step = true;
+      prevSecond = second();
+    }
+    if ( step )
+    {
+      invaderManager.update();
+    }
     
     _render();
   }
@@ -30,7 +42,6 @@ class Space
   
   public void interactionLeft()
   {
-    println("interact left");
     int playerX = player.getX();
     if ( playerX != 0 )
     {
@@ -62,6 +73,22 @@ class Space
     lights[playerX][rows - 1][0] = playerC[0];
     lights[playerX][rows - 1][1] = playerC[1];
     lights[playerX][rows - 1][2] = playerC[2];
+    
+    
+    // render invaders
+    Invader[] invaders = invaderManager.getInvadersArray();
+    int[] invaderColor = invaderManager.getColorArray();
+    int totalInvaders = invaders.length;
+    for ( int i = 0; i < totalInvaders; i++ )
+    {
+      Invader invader = invaders[i];
+      if ( invader != null )
+      {
+        lights[invader.x][invader.y][0] = invaderColor[0];
+        lights[invader.x][invader.y][1] = invaderColor[1];
+        lights[invader.x][invader.y][2] = invaderColor[2];
+      }
+    }
   }
   
   private void _resetLights()

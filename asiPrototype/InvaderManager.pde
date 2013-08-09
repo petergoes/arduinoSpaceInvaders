@@ -1,37 +1,43 @@
 class InvaderManager
 {
   color invaderColor;
-  Invader[] invaders;
+  ArrayList<Invader> invaders;
   
   InvaderManager( int columns, int rows )
   {
     invaderColor = #ff0000;
-    invaders = new Invader[columns * rows];
-    invaders[0] = new Invader(0, 0);
+    invaders = new ArrayList<Invader>();
+    invaders.add( new Invader(0, 0) );
   }
   
   public void update()
   {
-    int totalInvaders = invaders.length;
-    for ( int i = 0; i < totalInvaders; i++ )
+    int totalInvaders = invaders.size();
+    for ( int i = totalInvaders; i > 0; i-- )
     {
-      Invader invader = invaders[i];
+      Invader invader = invaders.get(i - 1);
       if ( invader != null )
       {
         if ( invader.y == rows - 1 )
         {
           invader = null;
-          invaders[i] = null;
+          invaders.remove(i - 1);
         }
         else
         {
           invader.y++;
         }
       }
-    }    
+    }
+    
+    float r = random(1);
+    if ( r > 0.5 )
+    {
+      invaders.add( new Invader( int(random(4)), 0 ) );
+    }
   }
   
-  public Invader[] getInvadersArray()
+  public ArrayList<Invader> getInvadersArray()
   {
     return invaders;
   }

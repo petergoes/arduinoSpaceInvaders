@@ -76,12 +76,12 @@ class Space
     
     
     // render invaders
-    Invader[] invaders = invaderManager.getInvadersArray();
+    ArrayList<Invader> invaders = invaderManager.getInvadersArray();
     int[] invaderColor = invaderManager.getColorArray();
-    int totalInvaders = invaders.length;
+    int totalInvaders = invaders.size();
     for ( int i = 0; i < totalInvaders; i++ )
     {
-      Invader invader = invaders[i];
+      Invader invader = invaders.get(i);
       if ( invader != null )
       {
         lights[invader.x][invader.y][0] = invaderColor[0];

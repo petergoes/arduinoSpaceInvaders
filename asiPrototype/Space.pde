@@ -1,11 +1,13 @@
 class Space
 {
-  int[][][]      lights;
-  int            columns;
-  int            rows;
-  int            prevSecond;
-  Player         player;
-  InvaderManager invaderManager;
+  int[][][]           lights;
+  int                 columns;
+  int                 rows;
+  int                 prevSecond;
+  Player              player;
+  InvaderManager      invaderManager;
+  ArrayList<Invader>  invaders;
+  int                 totalInvaders;
   
   Space ( int _columns, int _rows )
   {
@@ -30,7 +32,11 @@ class Space
     if ( step )
     {
       invaderManager.update();
+      invaders = invaderManager.getInvadersArray();
+      totalInvaders = invaders.size();
     }
+    
+    calculateCollision();
     
     _render();
   }
@@ -63,6 +69,31 @@ class Space
     _resetLights();
   }
   
+  private void calculateCollision()
+  {
+    Boolean updated = false;
+    
+    for ( int i = 0; i < totalInvaders; i++ )
+    {
+      Invader invader = invaders.get(i);
+      if ( invader != null && invader.y == rows - 1)
+      {
+        if ( player.x == invader.x )
+        {
+          Collision.x = invader.x;
+          Collision.y = invader.y;
+          Collision.isCollision = true;
+          updated = true;
+        }
+      }
+    }
+    
+    if ( !updated )
+    {
+      Collision.isCollision = false;
+    }
+  }
+  
   private void _render()
   {
     _resetLights();
@@ -76,9 +107,7 @@ class Space
     
     
     // render invaders
-    ArrayList<Invader> invaders = invaderManager.getInvadersArray();
     int[] invaderColor = invaderManager.getColorArray();
-    int totalInvaders = invaders.size();
     for ( int i = 0; i < totalInvaders; i++ )
     {
       Invader invader = invaders.get(i);
@@ -88,6 +117,15 @@ class Space
         lights[invader.x][invader.y][1] = invaderColor[1];
         lights[invader.x][invader.y][2] = invaderColor[2];
       }
+    }
+    
+    
+    // render collisions
+    if ( Collision.isCollision )
+    {
+      lights[Collision.x][Collision.y][0] = Collision.r;
+      lights[Collision.x][Collision.y][1] = Collision.g;
+      lights[Collision.x][Collision.y][2] = Collision.b;
     }
   }
   

@@ -5,7 +5,7 @@ class InvaderManager
   
   InvaderManager( int columns, int rows )
   {
-    invaderColor = #ff0000;
+    invaderColor = #ff00ff;
     invaders = new ArrayList<Invader>();
     invaders.add( new Invader(0, 0) );
   }

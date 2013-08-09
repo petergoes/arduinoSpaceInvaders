@@ -3,7 +3,7 @@ class Space
   int[][][] lights;
   int columns;
   int rows;
-  
+  Player player;
   
   Space ( int _columns, int _rows )
   {
@@ -11,10 +11,34 @@ class Space
     rows    = _rows;
     lights  = new int[columns][rows][3];
     
+    player = new Player();
+    
     initialize();
   }
   
   void initialize()
+  {
+    resetLights();
+  }
+  
+  void update()
+  {
+    // move Player
+    
+    render();
+  }
+  
+  void render()
+  {
+    // render player
+    int playerX = player.getX();
+    int[] playerC = player.getColorArray(); 
+    lights[playerX][rows - 1][0] = playerC[0];
+    lights[playerX][rows - 1][1] = playerC[1];
+    lights[playerX][rows - 1][2] = playerC[2];
+  }
+  
+  void resetLights()
   {
     for ( int x = 0; x < columns; x++ )
     {

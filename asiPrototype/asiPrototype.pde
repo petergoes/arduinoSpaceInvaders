@@ -33,6 +33,8 @@ void draw()
   clear();
   background(20);
   
+  space.update();
+  
   render( space.lightsToRender() );
 }
 

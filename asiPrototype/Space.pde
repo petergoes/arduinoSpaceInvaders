@@ -29,7 +29,8 @@ class Space
       step = true;
       prevSecond = second();
     }
-    if ( step )
+    
+    if ( step && player.alive )
     {
       invaderManager.update();
       invaders = invaderManager.getInvadersArray();
@@ -46,10 +47,15 @@ class Space
     return lights;
   }
   
+  public void interactionReset()
+  {
+    _reset();
+  }
+  
   public void interactionLeft()
   {
     int playerX = player.getX();
-    if ( playerX != 0 )
+    if ( playerX != 0 && player.alive )
     {
       player.movePlayer( playerX - 1 );
     }
@@ -58,7 +64,7 @@ class Space
   public void interactionRight()
   {
     int playerX = player.getX();
-    if ( playerX < columns - 1 )
+    if ( playerX < columns - 1 && player.alive )
     {
       player.movePlayer( playerX + 1 );
     }
@@ -83,6 +89,7 @@ class Space
           Collision.x = invader.x;
           Collision.y = invader.y;
           Collision.isCollision = true;
+          player.alive = false;
           updated = true;
         }
       }
@@ -144,5 +151,14 @@ class Space
         lights[x][y][2] = b;
       }
     }
+  }
+  
+  private void _reset()
+  {
+    player.reset();
+    Collision.reset();
+    invaderManager.reset();
+    invaders = invaderManager.getInvadersArray();
+    totalInvaders = invaders.size();
   }
 }

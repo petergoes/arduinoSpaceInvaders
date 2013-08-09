@@ -6,4 +6,9 @@ static class Collision
   static Boolean isCollision = false;
   static int x;
   static int y;
+  
+  static void reset()
+  {
+    isCollision = false;
+  }
 }

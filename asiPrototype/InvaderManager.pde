@@ -31,7 +31,7 @@ class InvaderManager
     }
     
     float r = random(1);
-    if ( r > 0.5 )
+    if ( r > 0.3 )
     {
       invaders.add( new Invader( int(random(4)), 0 ) );
     }
@@ -50,5 +50,11 @@ class InvaderManager
     colors[2] =  invaderColor        & 0xFF; // Blue
     
     return colors; 
+  }
+  
+  public void reset()
+  {
+    invaders = null;
+    invaders = new ArrayList<Invader>();
   }
 }

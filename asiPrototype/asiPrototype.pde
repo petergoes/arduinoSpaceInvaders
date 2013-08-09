@@ -64,7 +64,7 @@ void render( int[][][] lights )
   }
 }
 
-void keyPressed()
+void keyReleased()
 {
   if ( key==CODED )
   {
@@ -76,5 +76,10 @@ void keyPressed()
     {
       space.interactionLeft();
     }
+  }
+  
+  if ( key == 'r' || key == 'R')
+  {
+    space.interactionReset();
   }
 }

@@ -2,11 +2,12 @@ class Player
 {
   int x;
   color c;
+  Boolean alive;
   
   Player()
   {
-    x = 0;
     c = #ffff00;
+    reset();
   }
   
   public void movePlayer( int value )
@@ -32,5 +33,11 @@ class Player
     colors[2] =  c        & 0xFF; // Blue
     
     return colors; 
+  }
+  
+  public void reset()
+  {
+    x = 0;
+    alive = true;
   }
 }

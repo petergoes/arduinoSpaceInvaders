@@ -1,3 +1,7 @@
+/**
+ *  This class spawns invaders at a random interval and moves the invaders down.
+ */
+
 class InvaderManager
 {
   color invaderColor;

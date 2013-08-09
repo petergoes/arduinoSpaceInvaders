@@ -1,3 +1,11 @@
+/**
+ * This is the prototype of the Arduino project arduinoSpaceInvaders
+ * In this prototype I tried came up with the game logic that is going to be ported to the Arduino.
+ * The class you have in front of you, is the renderer to let Processing render the tiles virtually which represents physical tiles in the final product,
+ * and the interface for the user. In this case, it pushes keyboadr input to the Space class.
+ */
+
+
 // prototype variables
 int screenWidth  = 480;
 int screenHeight = 800;
@@ -28,6 +36,7 @@ void setup()
   space = new Space( columns, rows );
 }
 
+// acts as an update method
 void draw()
 {
   clear();
@@ -38,9 +47,10 @@ void draw()
   render( space.lightsToRender() );
 }
 
+// The render method. In the Arduino project, this is the place to power the LED's and give them their color 
 void render( int[][][] lights )
 {
-  // Draw lights
+  // Draw cells
   for ( int x = 0; x < columns; x++ )
   {
     for ( int y = 0; y < rows; y++ )
@@ -64,6 +74,7 @@ void render( int[][][] lights )
   }
 }
 
+// In the Arduino project, this will be the reading of buttons or sensors, and push those values to the Space object.
 void keyReleased()
 {
   if ( key==CODED )

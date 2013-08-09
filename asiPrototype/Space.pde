@@ -1,3 +1,9 @@
+/**
+ *  The main class of the application
+ *  What this class basicly does, is keeping an multidimensional array up to date to push that back to the renderer. In this array the color values for each cell is stored.
+ *  Besides that, it keeps track of collisions, and updates the InvaderManager once every second.
+ */
+
 class Space
 {
   int[][][]           lights;
@@ -105,6 +111,7 @@ class Space
   {
     _resetLights();
     
+   
     // render player
     int playerX = player.getX();
     int[] playerC = player.getColorArray();

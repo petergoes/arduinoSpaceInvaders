@@ -12,7 +12,23 @@ class InvaderManager
   
   public void update()
   {
-    println("second");
+    int totalInvaders = invaders.length;
+    for ( int i = 0; i < totalInvaders; i++ )
+    {
+      Invader invader = invaders[i];
+      if ( invader != null )
+      {
+        if ( invader.y == rows - 1 )
+        {
+          invader = null;
+          invaders[i] = null;
+        }
+        else
+        {
+          invader.y++;
+        }
+      }
+    }    
   }
   
   public Invader[] getInvadersArray()
